@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+fresh-harvest/
+├── public/
+│   ├── images/
+│   │   ├── logo.svg
+│   │   ├── hero/
+│   │   │   ├── hero-woman.png
+│   │   │   └── leaves.png
+│   │   ├── products/
+│   │   │   ├── mushrooms.png
+│   │   │   ├── mustard.png
+│   │   │   ├── orange.png
+│   │   │   ├── pomegranate.png
+│   │   │   ├── kiwi.png
+│   │   │   ├── coconut.png
+│   │   │   ├── watermelon.png
+│   │   │   └── eggplant.png
+│   │   ├── about/
+│   │   │   └── farmer-box.png
+│   │   ├── seasonal/
+│   │   │   └── fruit-bundle.png
+│   │   ├── testimonials/
+│   │   │   ├── customer1.png
+│   │   │   ├── customer2.png
+│   │   │   └── customer3.png
+│   │   └── blog/
+│   │       ├── blog1.png
+│   │       ├── blog2.png
+│   │       └── blog3.png
+│   ├── icons/
+│   │   ├── app-store.png
+│   │   ├── play-store.png
+│   │   ├── arrow.svg
+│   │   └── cart.svg
+│   └── favicon.ico
+├── src/
+│   ├── app/
+│   │   ├── layout.js
+│   │   ├── page.js
+│   │   ├── about/page.js
+│   │   ├── products/page.js
+│   │   ├── blog/page.js
+│   │   ├── contact/page.js
+│   │   └── globals.css
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   └── Navigation.jsx
+│   │   ├── ui/
+│   │   │   ├── Button.jsx
+│   │   │   ├── CountdownTimer.jsx
+│   │   │   ├── ProductCard.jsx
+│   │   │   ├── TestimonialCard.jsx
+│   │   │   ├── BlogCard.jsx
+│   │   │   └── CategoryTabs.jsx
+│   │   └── sections/
+│   │       ├── HeroSection.jsx
+│   │       ├── ProductsSection.jsx
+│   │       ├── AboutSection.jsx
+│   │       ├── SeasonalBundle.jsx
+│   │       ├── TestimonialsSection.jsx
+│   │       └── BlogSection.jsx
+│   ├── lib/
+│   │   ├── products.js
+│   │   ├── testimonials.js
+│   │   └── blog-posts.js
+│   └── utils/
+│       └── helpers.js
+├── next.config.js
+├── tailwind.config.js
+├── postcss.config.js
+├── package.json
+└── README.md
