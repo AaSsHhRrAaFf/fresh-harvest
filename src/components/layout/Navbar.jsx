@@ -52,7 +52,7 @@ const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
         {/* Logo and Brand Name */}
         <div className="flex items-center">
           <Image
-            src="/images/logo.png"
+            src="/images/Logo.png"
             alt="Fresh Harvests Logo"
             width={40}
             height={40}
