@@ -10,14 +10,14 @@ const HeroSection = () => {
         <div
           style={{
             width: "80%",
-            backgroundImage: "url(/images/hero/bg01.png)",
+            backgroundImage: "url(/images/hero/Bg01.png)",
           }}
           className="bg-cover bg-left"
         ></div>
         <div
           style={{
             width: "20%",
-            backgroundImage: "url(/images/hero/bg02.png)",
+            backgroundImage: "url(/images/hero/Bg02.png)",
           }}
           className="bg-cover bg-right"
         ></div>
