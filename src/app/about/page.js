@@ -83,7 +83,7 @@ function MissionAndValues() {
             </div>
             <h3 className="text-xl font-bold mb-3">Sustainability</h3>
             <p className="text-gray-600">
-              We're committed to sustainable farming practices that protect our
+              We are committed to sustainable farming practices that protect our
               environment and support local communities.
             </p>
           </div>
