@@ -1,23 +1,41 @@
-// // src/components/layout/Navbar.jsx
+
+
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import LoginModal from "../ui/LoginModal";
 import RegisterModal from "../ui/RegisterModal";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import Toast from "../ui/Toast";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "@/feature/authSlice";
 
-const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
-  //const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  //const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+const Navbar = () => {
   const pathname = usePathname();
- // const router = useRouter();
   const dispatch = useDispatch();
- // const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { items } = useSelector((state) => state.cart);
+
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [toast, setToast] = useState(null);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleOpenLoginModal = () => {
     setRegisterModalOpen(false);
@@ -33,18 +51,24 @@ const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
     setLoginModalOpen(false);
     setRegisterModalOpen(false);
   };
-  // Active link utility
-  const isActive = (path) => {
-    return pathname === path
-      ? "text-[#FF6C0E] font-medium"
-      : "text-gray-700 hover:text-[#FF6C0E]";
-  };
-  // Handle logout
+
   const handleLogout = () => {
     dispatch(logout());
-    setDropdownOpen(false);
-    router.push("/");
+    setToast({
+      message: "Successfully logged out!",
+      type: "success",
+    });
+    setIsDropdownOpen(false);
   };
+
+  // Check if the path is active
+  const isActive = (path) => {
+    if (path === "/" && pathname === "/") return true;
+    if (path !== "/" && pathname.startsWith(path)) return true;
+    return false;
+  };
+
+  const cartItemCount = items ? items.length : 0;
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-sm px-8 py-4 w-full">
@@ -65,24 +89,43 @@ const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-10">
-          <Link href="/" className={`${isActive("/")} transition-colors pb-1`}>
+          <Link
+            href="/"
+            className={`relative text-gray-900 font-medium pb-1 ${
+              isActive("/")
+                ? "after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:left-0 after:bottom-0"
+                : "text-gray-600 hover:text-gray-900 transition-colors"
+            }`}
+          >
             Home
           </Link>
           <Link
             href="/shop"
-            className={`${isActive("/shop")} transition-colors pb-1`}
+            className={`relative text-gray-900 font-medium pb-1 ${
+              isActive("/shop")
+                ? "after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:left-0 after:bottom-0"
+                : "text-gray-600 hover:text-gray-900 transition-colors"
+            }`}
           >
             Shop
           </Link>
           <Link
             href="/about"
-            className={`${isActive("/about")} transition-colors pb-1`}
+            className={`relative text-gray-900 font-medium pb-1 ${
+              isActive("/about")
+                ? "after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:left-0 after:bottom-0"
+                : "text-gray-600 hover:text-gray-900 transition-colors"
+            }`}
           >
             About us
           </Link>
           <Link
             href="/blog"
-            className={`${isActive("/blog")} transition-colors pb-1`}
+            className={`relative text-gray-900 font-medium pb-1 ${
+              isActive("/blog")
+                ? "after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:left-0 after:bottom-0"
+                : "text-gray-600 hover:text-gray-900 transition-colors"
+            }`}
           >
             Blog
           </Link>
@@ -92,7 +135,11 @@ const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
         <div className="hidden md:flex items-center space-x-6">
           <Link
             href="/favorites"
-            className="flex items-center text-gray-600 hover:text-gray-900"
+            className={`flex items-center ${
+              isActive("/favorites")
+                ? "text-green-600 font-medium"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +160,11 @@ const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
 
           <Link
             href="/cart"
-            className="flex items-center text-gray-600 hover:text-gray-900 relative"
+            className={`flex items-center relative ${
+              isActive("/cart")
+                ? "text-green-600 font-medium"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -130,17 +181,78 @@ const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
               />
             </svg>
             <span className="text-sm">Cart</span>
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              1
-            </span>
+            {cartItemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {cartItemCount}
+              </span>
+            )}
           </Link>
 
-          <button
-            onClick={() => setLoginModalOpen(true)}
-            className="text-green-600 border border-green-600 rounded-md px-4 py-1.5 text-sm hover:bg-green-50 transition-colors"
-          >
-            Sign in
-          </button>
+          {isAuthenticated ? (
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center text-gray-800 hover:text-green-600 transition-colors"
+              >
+                <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center mr-2">
+                  {user?.fullName?.charAt(0).toUpperCase() || "U"}
+                </div>
+                <span className="text-sm font-medium">
+                  {user?.fullName?.split(" ")[0] || "User"}
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-4 w-4 ml-1 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-sm font-medium">{user?.fullName}</p>
+                    <p className="text-xs text-gray-500">{user?.email}</p>
+                  </div>
+                  <Link
+                    href="/profile"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    My Profile
+                  </Link>
+                  <Link
+                    href="/orders"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    My Orders
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={() => setLoginModalOpen(true)}
+              className="text-green-600 border border-green-600 rounded-md px-4 py-1.5 text-sm hover:bg-green-50 transition-colors"
+            >
+              Sign in
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -161,19 +273,29 @@ const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
           </svg>
         </button>
       </div>
-    {/*   <LoginModal
+      <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setLoginModalOpen(false)}
         onSwitchToRegister={handleOpenRegisterModal}
-      /> 
-       <RegisterModal
+        setToast={setToast}
+      />
+      <RegisterModal
         isOpen={isRegisterModalOpen}
         onClose={handleCloseModals}
         onSwitchToLogin={handleOpenLoginModal}
-      /> */}
+        setToast={setToast}
+      />
+
+      {/* Toast notification */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </nav>
   );
 };
 
 export default Navbar;
-
