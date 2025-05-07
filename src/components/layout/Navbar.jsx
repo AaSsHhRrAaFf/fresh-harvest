@@ -1,13 +1,51 @@
-// src/components/layout/Navbar.jsx
-"use client"
+// // src/components/layout/Navbar.jsx
+"use client";
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LoginModal from "../ui/LoginModal";
+import RegisterModal from "../ui/RegisterModal";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
-const Navbar = () => {
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+const Navbar = ({ setLoginModalOpen, setRegisterModalOpen }) => {
+  //const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  //const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const pathname = usePathname();
+ // const router = useRouter();
+  const dispatch = useDispatch();
+ // const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleOpenLoginModal = () => {
+    setRegisterModalOpen(false);
+    setLoginModalOpen(true);
+  };
+
+  const handleOpenRegisterModal = () => {
+    setLoginModalOpen(false);
+    setRegisterModalOpen(true);
+  };
+
+  const handleCloseModals = () => {
+    setLoginModalOpen(false);
+    setRegisterModalOpen(false);
+  };
+  // Active link utility
+  const isActive = (path) => {
+    return pathname === path
+      ? "text-[#FF6C0E] font-medium"
+      : "text-gray-700 hover:text-[#FF6C0E]";
+  };
+  // Handle logout
+  const handleLogout = () => {
+    dispatch(logout());
+    setDropdownOpen(false);
+    router.push("/");
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-sm px-8 py-4 w-full">
       <div className="container mx-auto flex items-center justify-between">
@@ -27,27 +65,24 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-10">
-          <Link
-            href="/"
-            className="relative text-gray-900 font-medium pb-1 after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:left-0 after:bottom-0"
-          >
+          <Link href="/" className={`${isActive("/")} transition-colors pb-1`}>
             Home
           </Link>
           <Link
             href="/shop"
-            className="text-gray-600 hover:text-gray-900 transition-colors pb-1"
+            className={`${isActive("/shop")} transition-colors pb-1`}
           >
             Shop
           </Link>
           <Link
             href="/about"
-            className="text-gray-600 hover:text-gray-900 transition-colors pb-1"
+            className={`${isActive("/about")} transition-colors pb-1`}
           >
             About us
           </Link>
           <Link
             href="/blog"
-            className="text-gray-600 hover:text-gray-900 transition-colors pb-1"
+            className={`${isActive("/blog")} transition-colors pb-1`}
           >
             Blog
           </Link>
@@ -126,12 +161,19 @@ const Navbar = () => {
           </svg>
         </button>
       </div>
-      <LoginModal
+    {/*   <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setLoginModalOpen(false)}
-      />
+        onSwitchToRegister={handleOpenRegisterModal}
+      /> 
+       <RegisterModal
+        isOpen={isRegisterModalOpen}
+        onClose={handleCloseModals}
+        onSwitchToLogin={handleOpenLoginModal}
+      /> */}
     </nav>
   );
 };
 
 export default Navbar;
+

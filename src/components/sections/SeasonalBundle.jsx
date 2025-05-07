@@ -70,7 +70,7 @@ const SeasonalBundle = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Left content - Text and Countdown */}
-          <div className="w-full lg:w-1/2 space-y-6">
+          <div className="w-full px-36 lg:w-1/2 space-y-6">
             <div className="inline-block bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-medium">
               Special Offer
             </div>
@@ -96,7 +96,7 @@ const SeasonalBundle = () => {
 
           {/* Right content - Fruit Image */}
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-            <div className="relative">
+            <div className="relative px-32">
               <Image
                 src="/images/seasonal/fruit-bundle.png"
                 alt="Seasonal Fruit Bundle"

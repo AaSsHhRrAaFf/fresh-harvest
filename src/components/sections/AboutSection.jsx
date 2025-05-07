@@ -5,23 +5,13 @@ import ProductCard from "../ui/ProductCard";
 const AboutSection = () => {
   return (
     <section className="relative py-16 px-4 md:px-8 lg:px-12 overflow-hidden">
-      {/* "See All Products" Button at top */}
-      <div className="flex justify-center mb-10">
-        <Link
-          href="/products"
-          className="border border-orange-500 text-orange-500 px-5 py-2 rounded-lg hover:bg-orange-500 hover:text-white transition duration-300"
-        >
-          See All Products
-        </Link>
-      </div>
-
       {/* Decorative leaf */}
-      <div className="absolute right-1/4 top-1/4">
+      <div className="absolute right-6/12">
         <Image
-          src="/images/about/leaf-decoration.svg"
+          src="/images/leap.png"
           alt="Decorative leaf"
-          width={40}
-          height={40}
+          width={60}
+          height={50}
           className="opacity-60"
         />
       </div>
@@ -30,7 +20,7 @@ const AboutSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {/* Left column - Farmer image with overlays */}
         <div className="relative flex justify-center">
-          <div className="relative w-full max-w-md aspect-square rounded-full bg-green-100 overflow-hidden">
+          <div className="relative w-full max-w-md aspect-square rounded-full bg-green-100 ">
             <Image
               src="/images/about/farmer-box.png"
               alt="Farmer with fresh produce"
@@ -40,10 +30,10 @@ const AboutSection = () => {
             />
 
             {/* Logo badge overlay */}
-            <div className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-1/4 bg-white rounded-lg shadow-md py-2 px-4 flex items-center z-10">
+            <div className="absolute top-1/2 right-0  transform translate-y-8/12 -translate-x-2/12 bg-white rounded-lg shadow-md py-2 px-4 flex items-center justify-center gap-5 z-10">
               <div className="flex items-center">
                 <Image
-                  src="/images/logo.svg"
+                  src="/images/Logo.png"
                   alt="Fresh Harvests Logo"
                   width={24}
                   height={24}
@@ -52,25 +42,26 @@ const AboutSection = () => {
                   Fresh Harvests
                 </span>
               </div>
-
-              {/* Decorative sparkle */}
-              <div className="absolute -right-2 top-1/2 transform -translate-y-1/2">
-                <div className="w-6 h-6 text-orange-500">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L9.5 8.5 2 9.5 7 14 5.5 22 12 18 18.5 22 17 14 22 9.5 14.5 8.5z" />
-                  </svg>
-                </div>
-              </div>
             </div>
 
             {/* Product card overlay */}
-            <div className="absolute bottom-5 right-0 transform translate-x-1/4">
-              <ProductCard
-                name="Mushroom"
-                price={2.3}
-                image="/images/products/mushrooms.png"
-                compact={true}
-              />
+            <div className="w-[150.4px] h-[192px] bg-white rounded-xl shadow-[0_0_0_2px_rgba(44,137,255,0.12)] flex flex-col items-center pt-4 pb-3 px-2 absolute bottom-5 right-0 transform translate-y-2/5">
+              <div className="w-[110px] h-[78px] bg-[#F5F7FA] rounded-xl flex items-center justify-center mb-3">
+                <img
+                  src="/images/products/mushrooms.png"
+                  alt="Mushroom"
+                  className="object-contain max-h-[70px]"
+                />
+              </div>
+              <div className="flex flex-col items-center flex-1">
+                <span className="font-semibold text-sm text-gray-800 mb-0.5">
+                  Mushroom
+                </span>
+                <span className="text-xs text-gray-500 mb-3">$2.3/kg</span>
+                <button className="w-full py-1.5 text-sm font-medium bg-white border border-gray-200 rounded-lg hover:bg-gray-100 transition">
+                  Add to cart
+                </button>
+              </div>
             </div>
           </div>
         </div>

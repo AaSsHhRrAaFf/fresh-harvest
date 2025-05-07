@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden pt-6 pb-16 md:py-12 lg:py-16">
+    <section className="relative overflow-hidden pt-6 pb-16 md:py-12 lg:py-14">
       <div className="absolute inset-0 flex">
         <div
           style={{
@@ -24,7 +24,7 @@ const HeroSection = () => {
       </div>
 
       {/* Decorative Leaves - adjust positioning as needed */}
-      <div className="absolute top-0 left-10 md:left-20 z-0">
+      <div className="absolute top-0 left-10 md:left-0 z-0">
         <Image
           src="/images/hero/leaves.png"
           alt="Decorative leaf"
@@ -39,7 +39,7 @@ const HeroSection = () => {
         {/* Ensure content is above the background */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {/* Left Content */}
-          <div className="md:col-span-7 z-10 flex flex-col justify-center">
+          <div className="md:col-span-7 z-10 flex flex-col justify-center lg:px-40">
             {/* Welcome Tag */}
             <div className="inline-flex items-center bg-green-100 text-green-600 px-4 py-1 rounded-full text-sm mb-6 w-max">
               Welcome to Fresh Harvest
@@ -70,10 +70,10 @@ const HeroSection = () => {
             </div>
 
             {/* Special Offer Card with Arrow */}
-            <div className="relative mb-10">
-              <div className="absolute -top-8 right-20">
+            <div className="flex items-center justify-center gap-5 mb-10 ">
+              <div className=" -top-8">
                 <Image
-                  src="/images/icons/arrow.svg"
+                  src="/images/hero/arrow.png"
                   alt="Arrow pointing to special offer"
                   width={60}
                   height={60}
@@ -112,7 +112,7 @@ const HeroSection = () => {
               <div className="flex space-x-4">
                 <Link href="#" className="hover:opacity-80 transition-opacity">
                   <Image
-                    src="/images/icons/app-store.png"
+                    src="/images/footer/appstore.png"
                     alt="Download on App Store"
                     width={120}
                     height={40}
@@ -120,7 +120,7 @@ const HeroSection = () => {
                 </Link>
                 <Link href="#" className="hover:opacity-80 transition-opacity">
                   <Image
-                    src="/images/icons/play-store.png"
+                    src="/images/footer/googleplay.png"
                     alt="Get it on Google Play"
                     width={120}
                     height={40}
@@ -136,8 +136,8 @@ const HeroSection = () => {
               <Image
                 src="/images/hero/hero-woman.png"
                 alt="Woman holding fresh produce"
-                width={500}
-                height={600}
+                width={772}
+                height={864}
                 className="object-contain"
                 priority
               />

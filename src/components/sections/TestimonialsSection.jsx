@@ -101,14 +101,7 @@ const TestimonialsSection = () => {
           ></button>
         </div>
 
-        {/* Social Proof Counter - Optional based on your design preference */}
-        <div className="flex justify-center mt-6">
-          <div className="bg-[#3498db] text-white text-sm px-4 py-2 rounded-full flex items-center">
-            <span>1013 Hug</span>
-            <span className="mx-2 h-4 w-px bg-white/40"></span>
-            <span>718 Hug</span>
-          </div>
-        </div>
+        
       </div>
     </section>
   );
